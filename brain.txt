@@ -1,0 +1,326 @@
+================================================================================
+                    कर्म प्रधान — PROJECT ARCHITECTURE & BRAIN
+                      Karma-Driven Productivity Dashboard
+================================================================================
+
+1. PROJECT OVERVIEW & PHILOSOPHY
+--------------------------------------------------------------------------------
+Project Name      : कर्म प्रधान (Karma-Driven Productivity Dashboard)
+Core Motto        : "कर्म प्रधान विश्व रचि राखा, जो जस करहि सो तस फल चाखा"
+                    ("The world is built on the primacy of karma — as you sow, 
+                     so shall you reap")
+Purpose           : An all-in-one, dark-themed productivity dashboard designed
+                    for students, developers, and professionals to manage daily
+                    tasks, evaluate weekly/monthly performance, enforce recovery 
+                    and flexibility rules, and align daily actions with long-term 
+                    aspirations.
+Execution Model   : Single-instance local Streamlit web application backed by 
+                    SQLite database storage with zero required cloud services.
+
+
+2. DIRECTORY & FILE STRUCTURE
+--------------------------------------------------------------------------------
+Self_project/
+├── app.py                  Main application file (UI, logic, database, styling)
+├── requirements.txt        Python library dependencies
+├── README.md               Project introduction, setup, and feature quickstart
+├── karma_dashboard.db      Local SQLite database (auto-initialized at startup)
+└── brain.txt               Comprehensive project architecture and structural blueprint
+
+
+3. TECHNOLOGY STACK & DEPENDENCIES
+--------------------------------------------------------------------------------
+- Language          : Python 3.8+
+- UI Framework      : Streamlit (>= 1.32.0)
+  * Multi-tab layout (`st.tabs`), reactive forms, column configurations, sliders,
+    metric badges, and CSV export.
+- Data Visualization: Plotly (>= 5.20.0)
+  * `plotly.graph_objects` (Bar, Pie/Donut, Gauge, Scatter, Scatterpolar/Radar)
+  * `plotly.subplots.make_subplots` (Dual-axis charts)
+- Data Processing   : Pandas (>= 2.1.0)
+  * Dataframe aggregation, grouping, calendar gap filling, date manipulation
+- Database Engine   : SQLite3 (`sqlite3` built-in Python module)
+  * Zero-config, single-file ACID transactional persistence
+- Fonts & Typography: Google Fonts via CSS injection:
+  * 'Inter' (Primary UI)
+  * 'Noto Sans Devanagari' (Sanskrit quotes & Hindi headings)
+
+
+4. DATABASE ARCHITECTURE & SCHEMA SPECIFICATION
+--------------------------------------------------------------------------------
+Database File: karma_dashboard.db
+
+TABLE: tasks
+  - id           : INTEGER PRIMARY KEY AUTOINCREMENT
+  - date         : TEXT NOT NULL (YYYY-MM-DD)
+  - name         : TEXT NOT NULL (Task description / title)
+  - priority     : TEXT NOT NULL ('high', 'medium', 'low')
+  - est_mins     : REAL DEFAULT 0 (Estimated completion time in minutes)
+  - actual_mins  : REAL DEFAULT 0 (Actual recorded time in minutes)
+  - pct_done     : REAL DEFAULT 0 (Progress completion percentage 0-100)
+  - completed    : INTEGER DEFAULT 0 (Boolean flag: 1 = completed, 0 = pending)
+  - category     : TEXT DEFAULT 'work' ('work', 'study', 'health', 'personal', 'creative', 'balance')
+  - created_at   : TEXT DEFAULT CURRENT_TIMESTAMP
+
+TABLE: daily_log
+  - id           : INTEGER PRIMARY KEY AUTOINCREMENT
+  - date         : TEXT UNIQUE NOT NULL (YYYY-MM-DD)
+  - total_tasks  : INTEGER DEFAULT 0
+  - done_tasks   : INTEGER DEFAULT 0
+  - avg_pct      : REAL DEFAULT 0
+  - mood         : TEXT DEFAULT 'neutral'
+  - notes        : TEXT DEFAULT ''
+
+TABLE: long_term_goals
+  - id           : INTEGER PRIMARY KEY AUTOINCREMENT
+  - title        : TEXT NOT NULL
+  - deadline     : TEXT (YYYY-MM-DD)
+  - progress     : REAL DEFAULT 0 (Percentage 0-100)
+  - category     : TEXT DEFAULT 'career' ('career', 'project', 'health', 'learning', 'personal', 'other')
+  - description  : TEXT DEFAULT ''
+  - created_at   : TEXT DEFAULT CURRENT_TIMESTAMP
+
+TABLE: flex_log
+  - id           : INTEGER PRIMARY KEY AUTOINCREMENT
+  - date         : TEXT NOT NULL (YYYY-MM-DD)
+  - what_failed  : TEXT (Task or routine that could not be completed)
+  - why_failed   : TEXT (Underlying root cause or interruption)
+  - reallocation : TEXT (Strategy to shift, reallocate, or recover)
+  - created_at   : TEXT DEFAULT CURRENT_TIMESTAMP
+
+TABLE: mission_profile [Phase 2 — Active]
+  - id                      : INTEGER PRIMARY KEY CHECK (id = 1) (Singleton profile)
+  - life_mission            : TEXT (Primary overarching life mission)
+  - career_aspirations      : TEXT (Core professional career vision)
+  - learning_goals          : TEXT (Technical mastery & engineering targets)
+  - personal_growth         : TEXT (Philosophy of discipline & consistency)
+  - identity_statement      : TEXT ("The person I want to become")
+  - why_it_matters          : TEXT (Deep personal reason for the mission)
+  - what_it_enables         : TEXT (Autonomy, freedom, family security, impact)
+  - target_outcome          : TEXT (Specific measurable target outcome)
+  - target_date             : TEXT (YYYY-MM-DD target date)
+  - motivational_statements : TEXT (JSON array of personal affirmations)
+  - show_sanskrit_motto     : INTEGER DEFAULT 1 (Toggle Sanskrit quote card)
+  - quote_rotation_mode     : TEXT DEFAULT 'daily' ('daily' | 'all')
+  - updated_at              : TEXT DEFAULT CURRENT_TIMESTAMP
+
+TABLE: daily_intentions [Phase 2 — Active]
+  - id                   : INTEGER PRIMARY KEY AUTOINCREMENT
+  - date                 : TEXT UNIQUE NOT NULL (YYYY-MM-DD)
+  - intention            : TEXT NOT NULL (Daily focus & North Star)
+  - top_priority_task_id : INTEGER (Anchor link to today's #1 task)
+  - why_today_matters    : TEXT (Daily reflection on long-term alignment)
+  - energy_level         : INTEGER DEFAULT 3 (1-5 energy/focus scale)
+  - created_at           : TEXT DEFAULT CURRENT_TIMESTAMP
+
+TABLE: goal_milestones [Phase 3 — Active]
+  - id          : INTEGER PRIMARY KEY AUTOINCREMENT
+  - goal_id     : INTEGER NOT NULL (Foreign key to long_term_goals.id)
+  - title       : TEXT NOT NULL (Milestone title/deliverable)
+  - target_date : TEXT (YYYY-MM-DD target deadline)
+  - completed   : INTEGER DEFAULT 0 (0: Pending, 1: Completed)
+  - weight      : REAL DEFAULT 1.0 (Contribution weight towards goal progress)
+  - notes       : TEXT (Context, deliverables, or checklist notes)
+  - created_at  : TEXT DEFAULT CURRENT_TIMESTAMP
+
+EXTENSIONS [Phase 3 — Backward Compatible]:
+  - `long_term_goals` columns added: motivation, start_date, desired_outcome, success_criteria, status, blockers, next_action, review_frequency
+  - `tasks` columns added: goal_id (FK to long_term_goals), milestone_id (FK to goal_milestones), blockers
+
+
+Data Seeding Mechanism:
+  - Function `seed_demo_data()` checks if `tasks` is empty.
+  - If empty, creates 14 days of realistic task history with randomized
+    completion rates, time variances, and 4 starter long-term goals.
+  - Function `get_mission_profile()` initializes default aspirational engineering profile
+    if `mission_profile` table is empty.
+
+
+5. CORE VISUAL & DESIGN SYSTEM
+--------------------------------------------------------------------------------
+Color Palette:
+  - Background Dark   : #0d1117 (Deep Black), #101828 / #16213e (Card/Navy Base)
+  - Border Accents    : #1a3358, #1e3a5f
+  - High Priority     : #dc2626 (Red gradient #2d0a0a -> #1a0505)
+  - Medium Priority   : #ffd700 (Amber/Gold gradient #2d2000 -> #1a1400)
+  - Low Priority      : #57cbff (Cyan/Blue gradient #0a1a2d -> #0a1020)
+  - Balance / Done    : #64ffda (Teal/Emerald gradient #0a2d1a -> #071a0f)
+  - Primary Accent    : #1d4ed8 (Vibrant Royal Blue)
+
+Key Styling Classes:
+  - `.hero-banner`    : Gradient banner with Sanskrit watermark and metadata tags
+  - `.metric-card`    : Elevated KPI cards with hover translateY micro-animation
+  - `.priority-*`     : Color-coded cards for high, medium, low, and balance tasks
+  - `.prog-wrap`      : Custom HTML progress bars with animated transition
+  - `.streak-box`     : Visual 7-day streak chips
+  - `.cal-grid`       : CSS 7-column grid layout for full-month day-by-day views
+
+
+6. APPLICATION ARCHITECTURE & CODE MODULES (app.py)
+--------------------------------------------------------------------------------
+The application is organized into the following logical sections in `app.py`:
+
+[Section 1] Configuration & Page Initialization (Lines 18 - 234)
+  - Page config: `layout="wide"`, expanded sidebar, favicon, title
+  - CSS injection: Typography, theme colors, cards, progress bars, tab stylings
+
+[Section 2] Data Layer & SQLite Helpers (Lines 235 - 472)
+  - `get_conn()`: Returns thread-safe SQLite connection
+  - `init_db()`: Initializes the 4 schema tables
+  - CRUD Task Operations:
+    * `get_tasks(for_date)`
+    * `add_task(name, priority, est_mins, category, for_date)`
+    * `update_task(task_id, actual_mins, pct_done, completed)`
+    * `delete_task(task_id)`
+  - Aggregation Queries:
+    * `get_weekly_data()`: Rolling 7-day window totals, completions, and average %
+    * `get_monthly_data()`: Current calendar month day-by-day stats
+    * `get_month_record(year, month)`: Complete month grid with priority splits
+  - Goal Management:
+    * `get_goals()`, `add_goal(...)`, `update_goal_progress(...)`, `delete_goal(...)`
+  - Flexibility Log:
+    * `log_flex(...)`, `get_flex_logs()`
+  - Demo Seeder:
+    * `seed_demo_data()`: Initializes sample historical data if DB is empty
+
+[Section 3] Plotly Theme Engine (Lines 473 - 497)
+  - `CHART_THEME`: Transparent background, Inter typography, custom legend
+  - `AXIS_STYLE`: Coordinated grid lines and borders (#1a3358)
+  - `apply_theme(fig, height, **kwargs)`: Unified chart layout applicator
+
+[Section 4] Sidebar Navigation & Quick Actions (Lines 498 - 549)
+  - Brand header with Devanagari typography
+  - Date selector (`st.date_input`) to inspect/log tasks for any past or future day
+  - "Add New Task" Form: Task Name, Estimated Hours/Minutes, Priority, Category
+  - "Balance Slot" Section: Quick logger for family, entertainment, and rest
+  - Sticky philosophical quote
+
+[Section 5] Global Hero Banner & Quick KPI Strip (Lines 550 - 609)
+  - Dynamic Streak calculation (rolling 30-day window checking >=60% completion)
+  - Sanskrit quote banner with live metadata pills (Date, Streak, High Pending)
+  - 4 Global Metric Cards:
+    1. Today's Tasks (Total count)
+    2. Completed Tasks
+    3. Average Progress %
+    4. Current Streak (Days)
+
+[Section 6] The 7 Core Navigation Tabs
+
+  ├── TAB 0: 🌟 Mission & Motivation Center [Phase 2 — Active]
+  │   ├── Hero Mission Card: Overarching life mission, identity statement, target countdown
+  │   ├── Left Column (3/5):
+  │   │   ├── Daily Intention & North Star: Interactive logger (focus text, energy slider, task anchor)
+  │   │   ├── Actionable Motivation Bridge: Live connection between long-term goals and today's #1 action
+  │   │   └── Four Pillars of Purpose Grid: Career, Learning, Personal Growth, Why It Matters
+  │   ├── Right Column (2/5):
+  │   │   ├── Current Top 3 Goals Spotlight: Live progress bars, category tags, deadline countdowns
+  │   │   ├── Personal Affirmations & Sanskrit Grounding: Configurable statement list with motto toggle
+  │   │   ├── Recent Karma Momentum: List of completed tasks and recorded minutes
+  │   │   └── Constructive Consistency Reflection: Compassionate momentum feedback based on active streak
+  │   └── Bottom Expander:
+  │       └── Profile Configuration Editor: Edit life mission, aspirations, affirmations, target dates
+  │
+  ├── TAB 1: 📋 Today's Tasks
+  │   ├── Left Column (3/5):
+  │   │   ├── Priority Task Feed (Grouped into High, Medium, Low)
+  │   │   ├── Task cards with strikethrough upon completion
+  │   │   ├── Goal linkage badge (🎯 Linked Goal) & Blockers tag (🚧 Known blockers)
+  │   │   ├── Inline editors for actual hours, actual minutes, progress slider
+  │   │   ├── Quick Save (💾) and Delete (🗑) buttons
+  │   │   └── Balance & Rest section (Burnout prevention logger)
+  │   └── Right Column (2/5):
+  │       ├── Priority Split Donut Chart (Plotly Pie)
+  │       ├── 8-Hour Work Capacity Gauge Meter (Plotly Indicator)
+  │       └── Completion breakdown progress bars per priority
+  │
+  ├── TAB 2: 📊 Weekly Summary
+  │   ├── Left Column (3/5):
+  │   │   ├── 7-Day Total vs Completed Bar Chart (Overlay mode)
+  │   │   └── 7-Day Average Completion % Line Chart with 80% goal reference
+  │   └── Right Column (2/5):
+  │       ├── 7-Day Streak Board with status icons (✓ Done, · Miss, 📍 Today)
+  │       ├── Aggregated Weekly Metric Cards (Total Tasks, Done, Efficiency %)
+  │       └── Dynamic Behavioral Feedback / Motivational Insight Card
+  │
+  ├── TAB 3: 📆 Monthly Tracker
+  │   ├── Left Column (3/5):
+  │   │   ├── Calendar Heatmap (Week-based grid styled via Plotly Heatmap)
+  │   │   └── Daily Done vs Total Bar Chart with secondary axis for Avg %
+  │   └── Right Column (2/5):
+  │       ├── Month-over-Month KPIs (Total Tasks, Completed, Efficiency, Active Days)
+  │       └── 6-Month Rolling Productivity Trend Chart
+  │
+  ├── TAB 4: 🔄 Flexibility & Recovery
+  │   ├── Philosophy: "Plans are allowed to bend — but not break."
+  │   ├── Left Column (3/5):
+  │   │   ├── Reflection Logger Form (What failed, Why it failed, Reallocation strategy)
+  │   │   └── Past Reflections History Feed
+  │   └── Right Column (2/5):
+  │       ├── Flexibility Rulebook (Allowed practices, Cautions, Prohibited behaviors)
+  │       └── Plan vs. Actual Chart (Today's planned minutes vs actual minutes per priority)
+  │
+  ├── TAB 5: 🎯 Long-Term Goals [Phase 3 — Upgraded]
+  │   ├── Left Column (3/5):
+  │   │   ├── Active Goal Cards:
+  │   │   │   ├── Title, Category, Deadline countdown, Description, Motivation
+  │   │   │   ├── Calculated Progress Bar (% from milestones, or manual override)
+  │   │   │   ├── Measurement Indicator badge ("Verified from Milestones" vs "Manual Estimate")
+  │   │   │   ├── Milestone Completion KPI (e.g. 2/4 completed)
+  │   │   │   ├── Overdue Milestones Warning Badge (⏰ Overdue Milestones)
+  │   │   │   ├── Time Invested vs Planned Effort (Actual hours vs planned hours from linked tasks)
+  │   │   │   ├── Inactivity / Staleness Warning Badge (triggers if no linked tasks in >= 4 days)
+  │   │   │   ├── Next Action Recommendation & Blockers notes
+  │   │   │   └── Expandable Tabs:
+  │   │   │       ├── Tab 1: Milestones Breakdown (toggle done, auto progress sync, overdue tag, add milestone)
+  │   │   │       ├── Tab 2: Contributing Tasks Feed (linked daily tasks, actual vs planned minutes, blockers)
+  │   │   │       └── Tab 3: Edit Goal Details (in-place editor for outcome, motivation, blockers, next action)
+  │   │   └── Inline Quick Controls: Progress Slider, Save %, Sync % from Milestones, and Delete Goal
+  │   └── Right Column (2/5):
+  │       ├── "Add New Goal" Form (Title, Category, Deadline, Initial Progress, Motivation, Outcome, Next Action)
+  │       ├── Goal Radar / Spider Chart (Plotly Scatterpolar across categories)
+  │       └── "Strategic Hierarchy Bridge" Callout (Life Mission → Long-Term Goal → Milestone → Daily Task)
+  │
+  └── TAB 6: 🗓️ 1-Month Record
+      ├── Month & Year Selectors (Inspect historical months or current month)
+      ├── Top KPI Ribbon (Total, Done, Left/Pending, Efficiency %, Active Days, Best Day)
+      ├── Row 1: Interactive Calendar Grid (Done vs Left daily cells) & Stacked Bar Chart
+      ├── Row 2: Daily Completion % Trend Bar Chart & Priority Breakdown with Donut
+      ├── Row 3: Comprehensive Day-by-Day Tabular Record (Pandas DataFrame)
+      │   └── CSV Download Button for monthly reporting
+      └── Row 4: Analytic Callouts (Best Day, Daily Average, Projected Month Total)
+
+[Section 7] Footer (Lines 1587 - 1598)
+  - Branding, spiritual quote attribution, and tech stack signature.
+
+
+7. DATA FLOW & USER INTERACTION CYCLE
+--------------------------------------------------------------------------------
+1. Initiation:
+   User selects date in Sidebar -> Database queried for specified date (`get_tasks`).
+2. Task Creation:
+   User submits task -> `add_task()` inserts into SQLite -> Streamlit executes `st.rerun()`.
+3. Execution & Tracking:
+   User adjusts time spent / progress sliders -> `update_task()` updates database.
+4. Review & Reflection:
+   - Weekly tab computes rolling efficiency & streak continuity.
+   - Monthly & 1-Month Record tabs aggregate volume, bottlenecks, and completion rate.
+   - Failures recorded in Flexibility Log to prevent burnout and encourage recovery.
+5. Strategic Alignment:
+   - Goals tracked via radar chart and tied back to daily execution habits.
+
+
+8. FUTURE EXTENSION & ARCHITECTURAL ROADMAP
+--------------------------------------------------------------------------------
+- Modular Refactoring:
+  Decompose single-file `app.py` into:
+  * `config/`     : Theme constants, CSS injection, layout setup
+  * `database/`   : SQLite connections, models, query functions
+  * `components/` : Sidebar, Hero banner, KPI cards, reusable UI blocks
+  * `tabs/`       : Isolated modules for tabs 1 through 6
+- Authentication & Multi-Tenancy:
+  Add user accounts table so multiple individuals can run independent dashboards.
+- Cloud Backup / Sync:
+  Implement automated export to cloud storage (Google Drive, AWS S3, or Supabase).
+- Pomodoro & Timer Integration:
+  Add a live countdown / stopwatch widget directly within Tab 1 for actual time tracking.
+================================================================================

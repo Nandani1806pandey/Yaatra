@@ -1,0 +1,1010 @@
+# MASTER PROMPT: कर्म प्रधान 2.0 — Personal Consistency, Motivation & Goal Achievement System
+
+## 1. Your Role
+
+Act as a senior full-stack Python engineer, product architect, UX/UI designer, productivity researcher, behavioral-science analyst, database engineer, QA engineer, and application security reviewer.
+
+Your mission is to inspect, deeply analyze, research, improve, implement, test, and document my existing project:
+
+**Project name:** कर्म प्रधान  
+**Product identity:** Karma-Driven Productivity Dashboard  
+**Core motto:** कर्म प्रधान विश्व रचि राखा, जो जस करहि सो तस फल चाखा  
+**Philosophy:** Consistency over intensity. Discipline with flexibility. Honest reflection over self-blame. Progress through deliberate action.
+
+The objective is to transform the current application into a polished, intelligent, personal productivity and accountability platform that helps me remain consistent with my goals, remember my purpose, understand my failures, and take measurable action toward long-term results.
+
+Do not merely suggest improvements. Inspect the real repository, establish the current baseline, create an implementation plan, implement the approved architecture, test all changes, and produce a verified completion report.
+
+---
+
+## 2. Mandatory Research and Analysis Phase
+
+Before modifying any code, perform these steps.
+
+### A. Deep research
+
+Use `/deep-research` if supported, or an equivalent research process, to investigate:
+
+1. Evidence-informed habit formation and consistency systems.
+2. Goal setting, implementation intentions, and progress monitoring.
+3. Effective daily planning, weekly reviews, and monthly retrospectives.
+4. Root-cause analysis for incomplete tasks and missed targets.
+5. Notification timing, actionable reminders, and notification fatigue.
+6. Productivity dashboard UX patterns and accessible dark-themed interfaces.
+7. Personal analytics methods that distinguish activity, consistency, and actual outcomes.
+8. Privacy-preserving local-first application design and dependable notification delivery.
+
+Prefer credible primary research, peer-reviewed publications, official technical documentation, and established UX research.
+
+For each important recommendation, explain:
+- The problem it solves.
+- The supporting evidence or technical rationale.
+- The proposed feature.
+- Its implementation complexity.
+- Its limitations and potential unintended consequences.
+
+Do not invent research findings, citations, APIs, or library capabilities. Distinguish established evidence from hypotheses and design recommendations.
+
+### B. Deep analysis of the existing repository
+
+Use `/deep-analysis` if supported, or equivalent structured analysis.
+
+Inspect:
+- `app.py`
+- `requirements.txt`
+- `README.md`
+- `brain.txt`
+- `karma_dashboard.db`
+- All existing functions, queries, forms, callbacks, charts, styles, and navigation.
+- The actual database schema and existing records.
+- Existing dependencies and runtime environment.
+- Current tests, if any.
+- The actual startup, persistence, export, and error-handling behavior.
+
+Produce:
+1. Current architecture and dependency map.
+2. Existing features that work.
+3. Bugs, duplicated logic, design weaknesses, and missing functionality.
+4. Database integrity and migration risks.
+5. Security, accessibility, performance, and reliability issues.
+6. A prioritized implementation plan with dependencies and acceptance criteria.
+
+The supplied project architecture is a specification to verify, not proof that every described feature is correctly implemented.
+
+Do not start a large refactor until you understand the actual code.
+
+---
+
+## 3. Non-Negotiable Safety and Preservation Rules
+
+1. Work only on the कर्म प्रधान project.
+2. Preserve all existing working features unless a replacement is explicitly justified and tested.
+3. Do not delete or reset `karma_dashboard.db`.
+4. Do not remove existing tasks, goals, daily logs, reflections, or historical records.
+5. Do not run destructive SQL statements, destructive cleanup commands, or database-reset scripts.
+6. Create a verified, restorable database backup before any database migration.
+7. Test migrations on a copy of the database before applying them to the original.
+8. Make migrations versioned, repeatable where appropriate, and safe to resume.
+9. Preserve CSV export, date selection, task management, historical reports, and existing chart functionality.
+10. Avoid introducing cloud dependencies, external accounts, paid APIs, or mandatory internet connectivity.
+11. Do not add AI services that transmit my personal data externally without explicit configuration and consent.
+12. Keep the current application runnable throughout the implementation.
+13. Never claim a test, feature, migration, notification, or deployment succeeded unless it was actually verified.
+14. If a requested feature is blocked by missing operating-system permissions or platform capabilities, explain the limitation and provide a safe alternative.
+15. Work incrementally. Prefer small, testable changes over a complete rewrite.
+
+If the repository differs from the supplied architecture, document the discrepancy and make decisions based on verified code and data.
+
+---
+
+## 4. Core Product Vision
+
+The application must help me develop a sustainable system for achieving long-term targets.
+
+The application should provide five continuous capabilities:
+
+**PLAN → EXECUTE → REMEMBER → ANALYZE → ADAPT**
+
+### PLAN
+Convert aspirations into milestones, weekly objectives, and achievable daily tasks.
+
+### EXECUTE
+Show clear priorities, available capacity, task progress, and the next best action.
+
+### REMEMBER
+Deliver timely reminders about scheduled tasks, deadlines, daily intentions, and personal motivation.
+
+### ANALYZE
+Measure consistency, completion, estimation accuracy, recurring interruptions, and progress toward outcomes.
+
+### ADAPT
+Identify the likely reasons for missed targets and help create a realistic recovery plan.
+
+The application should be supportive but honest. It must encourage discipline without creating shame, excessive pressure, or unrealistic expectations.
+
+---
+
+## 5. Feature One: Personal Mission and Motivation Center
+
+Create a dedicated Motivation & Purpose section.
+
+### Personal mission profile
+
+Allow me to configure and edit:
+- My primary life mission.
+- My most important career aspirations.
+- My learning and technical-development goals.
+- My personal growth goals.
+- Why each goal matters to me.
+- What achieving each goal will enable.
+- My desired outcome and target date.
+- My own motivational statements.
+- A description of the person I want to become.
+
+Store this information locally in SQLite.
+
+### Motivation dashboard
+
+Display:
+- My primary mission prominently.
+- My current top three goals.
+- My most important action for today.
+- Progress toward each major goal.
+- Recent achievements and milestones.
+- A meaningful reminder of why I started.
+- A short daily intention.
+- A constructive reflection on recent consistency.
+
+Include the Sanskrit motto with appropriate Devanagari typography.
+
+Allow me to change motivational messages and disable any content that I find distracting.
+
+Do not randomly generate generic motivational quotes every time the application reruns. Use configurable messages, meaningful context, and controlled rotation.
+
+### Motivation should be actionable
+
+When a reminder appears, connect it to a real task or goal.
+
+For example:
+
+"Your cloud engineering goal matters because you are building practical career skills. Complete today's 30-minute Linux practice session."
+
+The message must be based on configured goals and tasks, not fabricated personal circumstances.
+
+---
+
+## 6. Feature Two: Daily Notification and Reminder Engine
+
+Build a dependable reminder system with user-configurable schedules.
+
+### Reminder categories
+
+Support:
+1. Morning planning reminder.
+2. Scheduled task reminders.
+3. High-priority unfinished task reminders.
+4. Study and practice session reminders.
+5. Long-term goal check-ins.
+6. Evening review reminder.
+7. Weekly review reminder.
+8. Upcoming deadline warnings.
+9. Recovery reminders for rescheduled tasks.
+10. Optional motivational messages.
+
+### Reminder settings
+
+Provide configuration for:
+- Enable or disable individual reminder types.
+- Preferred reminder time.
+- Selected weekdays.
+- Time zone, defaulting to `Asia/Kolkata`.
+- Quiet hours.
+- Snooze duration.
+- Reminder lead time before a deadline.
+- Maximum reminders per day.
+- Notification channels.
+- Notification history.
+- Retry policy for transient delivery failures.
+
+Avoid duplicate notifications for the same task, event, and scheduled occurrence.
+
+Changing a task's schedule must update its future reminders.
+
+Completed, deleted, or cancelled tasks must not continue generating reminders.
+
+### Notification channels
+
+Design a pluggable notification interface.
+
+Implement the most reliable local notification channel supported by the actual runtime environment, such as desktop notifications or browser notifications, depending on feasibility.
+
+Potential channels:
+- In-app notification center.
+- Browser notifications with permission.
+- Desktop notifications through a supported operating-system integration.
+- Optional email or messaging integrations in a future version.
+
+Do not assume that Streamlit alone can deliver notifications while its application is closed.
+
+Document the distinction between:
+- Notifications while the application is open.
+- Notifications while the browser is in the background.
+- Notifications while the browser is closed.
+- Notifications when the application server is stopped.
+
+If persistent background delivery is required, use a separate, lightweight notification worker or operating-system scheduler. It must be optional, configurable, and appropriate for the deployment environment.
+
+Do not run a background scheduler every time Streamlit reruns or starts multiple duplicate workers.
+
+### Daily reminder workflow
+
+**Morning**
+- Show today's priorities.
+- Display the top three outcomes for the day.
+- Identify overdue tasks and approaching deadlines.
+- Show planned workload versus available time.
+- Ask for a short daily intention.
+
+**During the day**
+- Remind me about selected tasks.
+- Provide snooze, complete, reschedule, and dismiss actions where appropriate.
+- Avoid repeatedly notifying me about completed tasks.
+
+**Evening**
+- Summarize completed and pending tasks.
+- Ask why important tasks were missed.
+- Compare planned and actual time.
+- Help select recovery actions.
+- Generate a realistic starting plan for tomorrow.
+
+If the app was offline, handle missed reminders sensibly. Do not flood me with every expired notification when it starts again.
+
+---
+
+## 7. Feature Three: Intelligent Daily Planning
+
+Improve task creation and daily scheduling.
+
+Each task should support:
+- Title and description.
+- Priority.
+- Category.
+- Estimated duration.
+- Actual duration.
+- Progress percentage.
+- Completion status.
+- Planned start time.
+- Optional deadline.
+- Recurrence rules.
+- Associated long-term goal or milestone.
+- Reminder preferences.
+- Blocker or dependency information.
+- Notes and outcome.
+
+### Daily planning rules
+
+1. Display a realistic amount of work.
+2. Identify the most important task.
+3. Distinguish urgent work from important long-term progress.
+4. Estimate daily capacity based on available time.
+5. Warn when planned work exceeds capacity.
+6. Include optional rest and recovery periods.
+7. Prevent duplicate recurring tasks.
+8. Allow missed tasks to be rescheduled without changing historical records.
+9. Keep the distinction between estimated duration and actual duration.
+10. Do not automatically mark a task complete merely because its planned end time has passed.
+
+Offer a daily plan with:
+- Top three priorities.
+- Secondary tasks.
+- Optional tasks.
+- Planned breaks.
+- Available capacity.
+- Expected completion workload.
+- A short fallback plan for busy days.
+
+Allow manual control over every suggested adjustment.
+
+---
+
+## 8. Feature Four: Goal Breakdown and Target Alignment
+
+Enhance the existing `long_term_goals` functionality rather than creating a competing goal system.
+
+Create a hierarchy:
+
+**Life Mission → Long-Term Goal → Milestone → Weekly Objective → Daily Task**
+
+Each goal should support:
+- Title.
+- Description.
+- Category.
+- Motivation and personal reason.
+- Start date and target date.
+- Current progress.
+- Desired outcome.
+- Measurable success criteria.
+- Milestones.
+- Associated tasks.
+- Review frequency.
+- Status.
+- Blockers.
+- Next action.
+
+### Goal dashboard
+
+Display:
+- Percentage of milestones completed.
+- Deadline countdown.
+- Milestones achieved and overdue.
+- Tasks contributing to the goal.
+- Recent activity.
+- Time invested.
+- Planned versus actual effort.
+- Current blockers.
+- Recommended next action.
+
+Do not calculate goal progress solely from the number of tasks completed if those tasks have different importance.
+
+Allow explicit progress updates when the outcome cannot be measured automatically.
+
+Clearly distinguish estimated progress from verified outcome measurements.
+
+---
+
+## 9. Feature Five: Why Am I Not Getting Results? — Root-Cause Analysis
+
+This is one of the most important features of the application.
+
+Create a dedicated Performance Diagnosis and Reflection section.
+
+The system must explain not only what happened, but also what evidence suggests contributed to the result.
+
+### Collect useful evidence
+
+Analyze:
+- Tasks planned versus completed.
+- Completion percentages by category and priority.
+- Planned time versus actual time.
+- Tasks repeatedly postponed.
+- Deadlines missed.
+- Workload exceeding available capacity.
+- Goals receiving insufficient attention.
+- Days with no meaningful progress.
+- Recurring interruptions and blockers.
+- Task estimation errors.
+- Trends in self-reported energy, mood, or focus, if enabled.
+- Changes in consistency over time.
+- Recovery actions and whether they helped.
+
+### Root-cause categories
+
+Allow me to classify a missed task as:
+- Unrealistic planning.
+- Poor time estimation.
+- Unexpected work.
+- Distraction.
+- Lack of clarity.
+- Missing prerequisite or skill.
+- Low energy or inadequate rest.
+- Avoidance or procrastination.
+- Competing priorities.
+- External dependency.
+- Technical issue.
+- Other.
+
+These are reflection categories, not automatic diagnoses of my personality or mental health.
+
+### Diagnostic report
+
+For each review period, show:
+
+1. **Observed result:** What happened?
+2. **Evidence:** Which recorded metrics support the observation?
+3. **Likely contributing factors:** What patterns may explain the result?
+4. **Confidence:** Is the conclusion strongly supported or only a possibility?
+5. **Missing information:** What additional information would improve the analysis?
+6. **Corrective action:** What should change?
+7. **Next experiment:** What small adjustment should I test?
+8. **Review date:** When should I evaluate whether it worked?
+
+Example:
+
+"Your planned workload exceeded your recorded available capacity on four of the last seven days. On those days, completion was lower than your weekly average. Consider reducing planned workload by 20% for the next week and comparing the results."
+
+This example must only be generated when the underlying records support it.
+
+Do not fabricate statistics or state that one factor caused an outcome when the data only indicates correlation.
+
+Avoid guilt-inducing messages. Use evidence-based language such as "possible bottleneck," "observed pattern," and "suggested experiment."
+
+---
+
+## 10. Feature Six: Advanced Progress and Consistency Analytics
+
+Preserve and improve the existing weekly, monthly, and one-month reporting tabs.
+
+### Essential metrics
+
+Display:
+- Tasks planned.
+- Tasks completed.
+- Task completion rate.
+- Average recorded progress.
+- Estimated versus actual minutes.
+- Active days.
+- Consistency rate.
+- Goal progress.
+- Milestones achieved.
+- Overdue tasks.
+- Postponed tasks.
+- Recovery success rate.
+- Category-wise time allocation.
+- Priority-wise completion.
+- Long-term goal activity.
+
+Define every metric clearly. Do not confuse completion rate, average task progress, and outcome achievement.
+
+### Consistency analysis
+
+Track:
+- Consecutive active days.
+- Weekly adherence.
+- Planned versus actual execution.
+- Long-term goal engagement.
+- Recovery after missed days.
+
+Do not make a single missed day erase all evidence of previous progress.
+
+Offer flexible streak policies and a configurable minimum threshold. Show the underlying calculation.
+
+### Advanced visualizations
+
+Improve Plotly visualizations with:
+- Daily and weekly trends.
+- Planned versus actual time.
+- Goal progress timelines.
+- Calendar heatmaps.
+- Category allocation charts.
+- Bottleneck breakdowns.
+- Rolling consistency averages.
+- Milestone completion.
+- Monthly comparisons.
+- Task estimation accuracy.
+
+All charts must handle empty data, missing dates, and incomplete months without errors.
+
+Provide useful text summaries alongside charts.
+
+---
+
+## 11. Feature Seven: Flexible Recovery System
+
+Preserve and improve the existing `flex_log` functionality.
+
+Build a structured recovery workflow:
+
+**Missed task → Reason → Impact → Recovery decision → New schedule → Review**
+
+Allow me to:
+- Record what went wrong.
+- Explain the reason.
+- Estimate the impact.
+- Decide whether to reschedule, reduce, delegate, or cancel.
+- Choose a new deadline.
+- Link the reflection to a task or goal.
+- Review whether the recovery action worked.
+
+Rules:
+- Do not silently delete missed work.
+- Do not automatically push every missed task into tomorrow.
+- Do not repeatedly reschedule a task without warning.
+- Do not treat rest or emergencies as productivity failures.
+- Show when a plan is overloaded.
+- Preserve historical records of schedule changes.
+- Encourage sustainable recovery rather than compensatory overwork.
+
+Add a low-capacity mode for difficult days that prioritizes one essential action and a realistic minimum plan.
+
+---
+
+## 12. Feature Eight: Enhanced Frontend and User Experience
+
+Transform the existing interface into a modern, premium-quality productivity dashboard while preserving the project's identity.
+
+### Design direction
+
+Use:
+- Deep dark background: `#0d1117`.
+- Navy surfaces: `#101828` and `#16213e`.
+- Royal blue accent: `#1d4ed8`.
+- Gold for important priorities: `#ffd700`.
+- Red for critical priority indicators: `#dc2626`.
+- Cyan for low-priority indicators: `#57cbff`.
+- Teal for progress and balance: `#64ffda`.
+- Inter for general typography.
+- Noto Sans Devanagari for Sanskrit and Hindi.
+
+Use these as starting design tokens, not rigid restrictions.
+
+### Layout improvements
+
+Create:
+- A clear dashboard header.
+- A compact sidebar with intuitive navigation.
+- A prominent daily focus panel.
+- A clean KPI strip.
+- A task feed with useful filters.
+- A dedicated notification center.
+- A personal mission and goals section.
+- A performance insights section.
+- A responsive calendar.
+- A focused weekly review.
+- A compact daily reflection interface.
+
+### UI requirements
+
+1. Improve spacing, typography, contrast, and visual hierarchy.
+2. Use consistent card sizes and padding.
+3. Add clear loading, success, empty, and error states.
+4. Make buttons and form actions understandable.
+5. Prevent duplicate submissions.
+6. Preserve form state where practical.
+7. Avoid unnecessary full-page visual disruption after interactions.
+8. Use accessible labels, keyboard navigation, and visible focus states.
+9. Support desktop and narrow-screen layouts as far as Streamlit allows.
+10. Avoid excessive gradients, animations, oversized cards, and decorative clutter.
+11. Use color and text together to communicate task status.
+12. Ensure every dashboard metric has a clear definition or explanation.
+
+Do not replace the existing UI framework simply for visual novelty. Evaluate the cost, reliability, and benefit before introducing any additional frontend technology.
+
+---
+
+## 13. Feature Nine: Daily, Weekly, and Monthly Reviews
+
+### Daily review
+
+Provide a short end-of-day workflow:
+- What did I plan?
+- What did I complete?
+- What was left unfinished?
+- What contributed to the outcome?
+- What did I learn?
+- What is tomorrow's most important action?
+
+### Weekly review
+
+Analyze:
+- Consistency.
+- Completion rates.
+- Goal engagement.
+- Time allocation.
+- Recurring blockers.
+- Planning accuracy.
+- Recovery effectiveness.
+
+Generate three outputs:
+1. What worked.
+2. What needs improvement.
+3. Three actionable priorities for the next week.
+
+### Monthly review
+
+Show:
+- Goal and milestone progress.
+- Monthly trend comparisons.
+- Major achievements.
+- Repeated bottlenecks.
+- Time allocation.
+- Targets missed and possible explanations.
+- Adjustments to next month's plan.
+
+Keep reviews concise by default, with the option to expand detailed analysis.
+
+---
+
+## 14. Feature Ten: Focus Sessions and Habit Tracking
+
+Evaluate and implement the following if the research and architecture justify them.
+
+### Focus sessions
+- Configurable focus timer.
+- Optional break intervals.
+- Task-linked focus sessions.
+- Planned versus actual focus time.
+- Session history.
+- Interruption logging.
+
+### Habit tracking
+- Custom recurring habits.
+- Daily or weekly frequency.
+- Completion history.
+- Flexible streaks.
+- Missed-habit reflection.
+- Weekly adherence.
+
+Habits must remain separate from one-off tasks, while allowing users to associate habits with long-term goals.
+
+Do not treat a running timer as proof that meaningful work occurred.
+
+---
+
+## 15. Database Architecture and Migration
+
+The existing application uses SQLite and has these primary tables:
+
+- `tasks`
+- `daily_log`
+- `long_term_goals`
+- `flex_log`
+
+Preserve these tables and their data.
+
+Design the smallest appropriate schema extensions for:
+- Application settings.
+- Mission and motivation profiles.
+- Goal milestones.
+- Habit definitions and habit records.
+- Task-to-goal relationships.
+- Notification schedules and delivery history.
+- Task rescheduling history.
+- Daily intentions.
+- Structured reflections.
+- Focus sessions.
+- Review history.
+- Schema migration versions.
+
+These are proposed capabilities, not a requirement to create every table regardless of need.
+
+### Database requirements
+
+1. Inspect the actual schema before writing migrations.
+2. Use parameterized SQL queries.
+3. Add foreign keys and indexes where appropriate.
+4. Enable SQLite foreign-key enforcement on every relevant connection.
+5. Use transactions for multi-step changes.
+6. Handle concurrent access and Streamlit reruns safely.
+7. Preserve unique constraints and historical dates.
+8. Avoid unnecessary duplicate records.
+9. Validate data before inserts and updates.
+10. Provide rollback and recovery procedures.
+11. Test migration against a copied production-like database.
+12. Preserve compatibility with existing data and exports.
+
+Document every schema change.
+
+---
+
+## 16. Architecture Refactoring
+
+The current application is primarily organized in `app.py`.
+
+Evaluate a modular structure similar to:
+
+Self_project/
+├── app.py
+├── requirements.txt
+├── README.md
+├── brain.txt
+├── karma_dashboard.db
+├── config/
+│   ├── settings.py
+│   └── theme.py
+├── database/
+│   ├── connection.py
+│   ├── migrations.py
+│   ├── repositories.py
+│   └── schema.py
+├── services/
+│   ├── task_service.py
+│   ├── goal_service.py
+│   ├── planning_service.py
+│   ├── analytics_service.py
+│   ├── insight_service.py
+│   ├── reminder_service.py
+│   └── review_service.py
+├── notifications/
+│   ├── dispatcher.py
+│   ├── channels.py
+│   └── worker.py
+├── components/
+│   ├── sidebar.py
+│   ├── cards.py
+│   ├── charts.py
+│   └── notifications.py
+├── pages/
+│   ├── dashboard.py
+│   ├── tasks.py
+│   ├── goals.py
+│   ├── motivation.py
+│   ├── insights.py
+│   ├── reviews.py
+│   └── settings.py
+├── tests/
+│   ├── test_database.py
+│   ├── test_tasks.py
+│   ├── test_goals.py
+│   ├── test_analytics.py
+│   ├── test_notifications.py
+│   └── test_migrations.py
+└── docs/
+    ├── architecture.md
+    ├── feature_roadmap.md
+    ├── testing.md
+    └── troubleshooting.md
+
+This is a proposed structure. Adapt it to the existing repository, actual Streamlit version, and project complexity.
+
+Avoid splitting files into many tiny modules without a clear responsibility.
+
+Separate UI, business logic, data access, and notification delivery. Keep the application simple enough to maintain locally.
+
+---
+
+## 17. Privacy, Reliability, and Security
+
+The project must remain local-first.
+
+Requirements:
+- No mandatory cloud services.
+- No required external AI APIs.
+- No external transmission of personal productivity data by default.
+- Configurable backup and export.
+- Secure handling of configuration and secrets.
+- No credentials embedded in source code.
+- Safe file paths and input validation.
+- Correct SQLite transaction handling.
+- Logging without exposing unnecessary personal notes.
+- Graceful handling of missing permissions and unavailable notification channels.
+- Recovery after application restarts.
+- No hidden destructive operations.
+- Minimal dependency additions.
+
+If local AI or language-model functionality is proposed, make it optional and explain its hardware, storage, and maintenance requirements.
+
+---
+
+## 18. Optional Advanced Features to Evaluate
+
+Use research and project-specific analysis to rank these features before implementation:
+
+1. A daily consistency score with a transparent formula.
+2. An effort-versus-outcome analysis.
+3. A goal risk indicator for inactive or overdue goals.
+4. A weekly workload and capacity planner.
+5. A distraction and interruption tracker.
+6. A personal productivity pattern explorer.
+7. A task-estimation accuracy report.
+8. A commitment reliability report.
+9. An automatic identification of repeatedly postponed tasks.
+10. A goal progress forecast with explicit uncertainty.
+11. A configurable personal rulebook.
+12. A daily minimum viable plan for low-capacity days.
+13. A local backup and restore manager.
+14. A printable weekly and monthly report.
+15. Search across tasks, goals, reflections, and history.
+16. Keyboard shortcuts and quick task entry.
+17. A configurable reward and milestone system.
+18. A calendar integration, only if it can be implemented safely and optionally.
+19. A local-first AI reflection assistant, only if its cost and privacy implications are justified.
+20. A progress journal connecting daily actions to long-term outcomes.
+
+For every candidate, score:
+- Value to the primary objective.
+- Implementation effort.
+- Technical risk.
+- Privacy impact.
+- Ongoing maintenance.
+- Dependency on external services.
+
+Recommend an MVP, a second phase, and a future phase. Avoid feature bloat.
+
+---
+
+## 19. Testing and Verification Requirements
+
+Build automated tests before or alongside feature implementation.
+
+### Database tests
+- Existing schema compatibility.
+- Migration success.
+- Backup and restore.
+- CRUD operations.
+- Transaction rollback.
+- Foreign-key integrity.
+- Duplicate handling.
+
+### Task tests
+- Task creation, editing, deletion, and completion.
+- Historical date handling.
+- Progress validation.
+- Recurring task generation.
+- Rescheduling and cancellation.
+- Goal association.
+
+### Analytics tests
+- Empty database.
+- Missing dates.
+- Zero tasks.
+- Partially completed tasks.
+- Overdue tasks.
+- Planned versus actual time.
+- Weekly and monthly aggregation.
+- Accurate goal progress calculations.
+
+### Notification tests
+- Correct schedule calculation.
+- Time-zone handling.
+- Quiet hours.
+- Snoozing.
+- Completed task suppression.
+- Duplicate prevention.
+- Restart recovery.
+- Delivery failures.
+- Missed notifications after downtime.
+- Background-worker lifecycle.
+
+Use a fake notification channel for automated tests. Do not send real notifications during unit tests.
+
+### UI and integration tests
+- Application starts successfully.
+- Every navigation section loads.
+- Existing features remain usable.
+- Forms validate input.
+- Charts render for empty and populated datasets.
+- CSV exports contain the correct information.
+- Errors are visible and actionable.
+- Database contents remain intact after normal application use.
+
+Run the available test suite and record the real output.
+
+Do not mark untested features as passing.
+
+---
+
+## 20. Implementation Phases
+
+### Phase 0 — Baseline and research
+- Inspect the repository.
+- Verify existing features.
+- Run current tests.
+- Inspect database integrity.
+- Research relevant best practices.
+- Produce a prioritized plan.
+
+### Phase 1 — Safety and architecture
+- Create and verify a database backup.
+- Add tests for existing functionality.
+- Establish versioned migrations.
+- Refactor the data and service layers incrementally.
+
+### Phase 2 — Core accountability
+- Add mission and motivation settings.
+- Improve daily planning.
+- Connect goals, milestones, and tasks.
+- Add daily reflection.
+- Implement the root-cause analysis foundation.
+
+### Phase 3 — Notifications
+- Build the reminder scheduler and dispatcher.
+- Implement an appropriate local notification channel.
+- Add preferences, quiet hours, snoozing, history, and duplicate prevention.
+- Verify background behavior and restart recovery.
+
+### Phase 4 — Analytics and insights
+- Improve weekly and monthly reports.
+- Add consistency and estimation analytics.
+- Implement evidence-based performance diagnosis.
+- Add recovery recommendations.
+
+### Phase 5 — Frontend redesign
+- Introduce reusable components.
+- Improve navigation, spacing, charts, responsiveness, and accessibility.
+- Preserve the application's visual identity.
+
+### Phase 6 — Advanced features
+- Add focus sessions, habits, and selected high-value extensions.
+- Defer features that create unnecessary complexity.
+
+### Phase 7 — Final audit
+- Run tests.
+- Verify database integrity.
+- Check for regressions.
+- Test startup and recovery.
+- Update documentation.
+- Produce a verified report.
+
+Reorder phases when technical dependencies require it, but do not skip safety, baseline testing, or migration validation.
+
+---
+
+## 21. Required Project Documentation
+
+Update the existing `brain.txt` to reflect the actual implemented architecture.
+
+Create or update:
+- `README.md` — setup, usage, configuration, and troubleshooting.
+- `brain.txt` — complete architecture and data-flow specification.
+- `docs/architecture.md` — modules, dependencies, database, and notification flow.
+- `docs/feature_roadmap.md` — implemented, planned, and deferred features.
+- `docs/testing.md` — commands, results, and test coverage.
+- `docs/troubleshooting.md` — common errors and recovery procedures.
+- A migration and backup guide.
+- A notification setup guide for the supported operating systems.
+
+Document environment-specific limitations honestly.
+
+---
+
+## 22. Final Acceptance Criteria
+
+The project is ready only when the following are verified:
+
+1. The existing application starts without errors.
+2. Existing tasks, goals, reflections, and history remain intact.
+3. Existing core dashboard features still work.
+4. My personal mission and motivations can be configured and saved.
+5. Daily plans can be linked to long-term goals.
+6. The application produces meaningful daily, weekly, and monthly summaries.
+7. Missed tasks can be analyzed using recorded evidence.
+8. Recovery actions can be recorded and reviewed.
+9. Notifications respect user preferences and do not duplicate unnecessarily.
+10. The supported notification channel's actual delivery conditions are documented.
+11. Analytics calculations have automated tests.
+12. Database migrations and backups have been verified.
+13. The interface is visually consistent and accessible.
+14. Documentation matches the implementation.
+15. No unverified feature is described as complete.
+16. All known limitations and remaining failures are documented.
+
+---
+
+## 23. Mandatory Final Report
+
+At completion, provide:
+
+### A. Executive summary
+What changed and how the application now supports consistency and goal achievement.
+
+### B. Research findings
+The most useful research-supported design decisions, with credible references where research was conducted.
+
+### C. Before-and-after architecture
+Explain the structural improvements.
+
+### D. Implemented features
+List each feature and its verification status.
+
+### E. Files changed
+Identify new, modified, and intentionally untouched files.
+
+### F. Database safety
+Report the backup location, migration status, integrity checks, and rollback procedure. Do not claim a backup exists unless verified.
+
+### G. Test results
+Include actual commands, pass/fail counts, failures, and untested areas.
+
+### H. Notification behavior
+Explain exactly when reminders work, when they do not, and what configuration is required.
+
+### I. Setup instructions
+Provide the exact commands for creating the environment, installing dependencies, starting the application, running tests, and starting or stopping the optional notification worker.
+
+### J. Remaining work
+Separate essential fixes, recommended next steps, and optional future features.
+
+### K. Final readiness assessment
+State whether the project is ready for normal use, partially implemented, or blocked. Justify the assessment with evidence.
+
+---
+
+## Final Instruction
+
+Begin with repository inspection, deep research, and deep analysis. First establish what already works and protect the existing database. Then present a prioritized implementation plan and execute it incrementally.
+
+The ultimate purpose of कर्म प्रधान is not to maximize the number of tasks I complete. It is to help me consistently perform the right actions, make measurable progress toward meaningful goals, understand why results fall short, and improve my decisions over time.
+
+**कर्म पर ध्यान, प्रगति का प्रमाण, और हर दिन बेहतर दिशा।**
+
+Do not stop at a design proposal. Complete as much of the implementation as the available environment permits, verify every completed feature, and report the remaining work honestly.
